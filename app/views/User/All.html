@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{{set . "title" "Users"}}
+{{template "header.html" .}}
+
+<header class="hero-unit" style="background-color:#A9F16C">
+    <div class="container">
+        <div class="row">
+            <div class="hero-text">
+                <h1>User</h1>
+
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="span6">
+            {{template "flash.html" .}}
+        </div>
+    </div>
+</div>
+
+<body>
+    <p>{{.users}}</p>
+</body>
+</html>
+
+{{template "footer.html" .}}

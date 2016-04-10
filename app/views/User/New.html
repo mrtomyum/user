@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{{set . "title" "New User"}}
+{{template "header.html" .}}
+
+<header class="hero-unit" style="background-color:#A9F16C">
+    <div class="container">
+        <div class="row">
+            <div class="hero-text">
+                <h1>New User</h1>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="row">
+        <div class="span6">
+            {{template "flash.html" .}}
+        </div>
+    </div>
+</div>
+<body>
+    <div class="container">
+    <h1>กรุณากรอกข้อมูลผู้ใช้งานใหม่</h1>
+    <form method="post" action="/user/all">
+        <label for="name">Username:</label>
+        <input type="text" id="name" name="name" placeholder="กรอกเป็นภาษาอังกฤษตัวเล็ก"></input><br/>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="รหัสผ่านอย่างน้อย 6 อักษร"></input><br/>
+        <label for="role">Role:</label>
+        <select id="role" name="role">
+            <optgroup label="System">
+                <option label="System Manager" value="SYSMANAGER"></option>
+                <option label="System Admin" value="SYSADMIN"></option>
+            </optgroup>
+            <optgroup label="Client">
+              <option label="Manager" value="MANAGER>"></option>
+              <option label="Admin" value="ADMIN"></option>
+              <option label="Cashier" value="CASHIER"></option>
+            </optgroup>
+        </select><br/>
+        <input type="submit" value="submit"></input><br/>
+    </form>
+    </div>
+</body>
+{{template "footer.html" .}}
