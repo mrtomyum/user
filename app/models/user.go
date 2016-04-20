@@ -10,7 +10,7 @@ type User struct {
 	gorm.Model
 	Name           string
 	Username       string
-	Password       string
+	Password       string	`gorm:"-"`
 	HashedPassword []byte
 	Role           string
 }

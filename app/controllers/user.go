@@ -31,6 +31,7 @@ func (c User) NewPost() revel.Result {
 	var user m.User
 	c.Params.Bind(&user, "user")
 	user.SetPass(user.Password)
+	user.Password = "" // prevent plain text password to be save to database
 	db.Create(&user)
 	fmt.Printf("User info: %v\n", user)
 	return c.RenderTemplate("User/New.html")
@@ -47,3 +48,6 @@ func (c User) ApiPost() revel.Result {
 func (c User) Show(id uint) revel.Result {
 	return c.Render()
 }
+
+// TODO: Add User.Edit() and modify User.Index() with link in User list
+// Todo: Add html template form with data from selected user for Action Edit()
