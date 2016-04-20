@@ -1,29 +1,32 @@
 package models
 
 import (
-	"github.com/elithrar/simple-scrypt"
 	"github.com/jinzhu/gorm"
+	"golang.org/x/crypto/bcrypt"
 	"log"
 )
 
 type User struct {
 	gorm.Model
-	Name     string
-	Password []byte
+	Name           string
+	Username       string
+	Password       string
+	HashedPassword []byte
+	Role           string
 }
 
 func (u *User) SetPass(p string) error {
-	hash, err := scrypt.GenerateFromPassword([]byte(p), scrypt.DefaultParams)
+	hash, err := bcrypt.GenerateFromPassword([]byte(p), bcrypt.DefaultCost)
 	if err != nil {
 		log.Fatalln(err)
 		return err
 	}
-	u.Password = hash
+	u.HashedPassword = hash
 	return nil
 }
 
 func (u *User) VerifyPass(p string) error {
-	err := scrypt.CompareHashAndPassword(u.Password, []byte(p))
+	err := bcrypt.CompareHashAndPassword(u.HashedPassword, []byte(p))
 	if err != nil {
 		return err
 	}

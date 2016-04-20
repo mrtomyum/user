@@ -21,7 +21,18 @@
 </div>
 
 <body>
-    <p>{{.users}}</p>
+
+<div class="container">
+    <div class="row">
+        <p>User Index:
+            {{range .users}}
+        <li>{{.Username}} {{.Name}}</li>
+        {{end}}
+        <br/>
+        </p>
+    </div>
+</div>
+
 </body>
 </html>
 

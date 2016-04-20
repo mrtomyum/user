@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {{set . "title" "New User"}}
 {{template "header.html" .}}
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <header class="hero-unit" style="background-color:#A9F16C">
     <div class="container">
         <div class="row">
@@ -22,24 +22,28 @@
 <body>
     <div class="container">
     <h1>กรุณากรอกข้อมูลผู้ใช้งานใหม่</h1>
-    <form method="post" action="/user/all">
-        <label for="name">Username:</label>
-        <input type="text" id="name" name="name" placeholder="กรอกเป็นภาษาอังกฤษตัวเล็ก"></input><br/>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" placeholder="รหัสผ่านอย่างน้อย 6 อักษร"></input><br/>
-        <label for="role">Role:</label>
-        <select id="role" name="role">
-            <optgroup label="System">
-                <option label="System Manager" value="SYSMANAGER"></option>
-                <option label="System Admin" value="SYSADMIN"></option>
-            </optgroup>
-            <optgroup label="Client">
-              <option label="Manager" value="MANAGER>"></option>
-              <option label="Admin" value="ADMIN"></option>
-              <option label="Cashier" value="CASHIER"></option>
-            </optgroup>
-        </select><br/>
-        <input type="submit" value="submit"></input><br/>
+
+    <form method="post" action="{{url "User.NewPost"}}">
+        <fieldset>
+            <legend accesskey="u">User Information</legend>
+            <label for="name" accesskey="n">Username:</label>
+            <input tabindex="1" type="text" id="name" name="user.Name" placeholder="กรอกเป็นภาษาอังกฤษตัวเล็ก"></input><br/>
+            <label for="password" accesskey="p">Password:</label>
+            <input tabindex="2" type="password" id="password" name="user.Password" placeholder="รหัสผ่านอย่างน้อย 6 อักษร"></input><br/>
+            <label for="role">Role:</label>
+            <select tabindex="3" id="role" name="user.Role">
+                <optgroup label="System">
+                    <option label="System Manager" value="SYSMANAGER"></option>
+                    <option label="System Admin" value="SYSADMIN"></option>
+                </optgroup>
+                <optgroup label="Client">
+                  <option label="Manager" value="MANAGER>"></option>
+                  <option label="Admin" value="ADMIN"></option>
+                  <option label="Cashier" value="CASHIER"></option>
+                </optgroup>
+            </select><br/>
+            <input tabindex="0" type="submit" value="submit"></input><br/>
+        </fieldset>
     </form>
     </div>
 </body>

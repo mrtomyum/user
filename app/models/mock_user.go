@@ -2,16 +2,16 @@ package models
 
 func MockUser()  []*User{
 	users := []*User{
-		{Name:"tom"},
-		{Name:"jip"},
-		{Name:"tam"},
-		{Name:"satit"},
-		{Name:"somrod"},
-		{Name:"bee"},
+		{Name:"เกษมอานนทวิลาศ", Username:"tom"},
+		{Name:"จิราภรณ์ อานนทวิลาศ", Username:"jip"},
+		{Name:"ธนันท์ อานนทวิลาศ", Username:"tam"},
+		{Name:"สาธิต โฉมวัฒนา", Username:"satit"},
+		{Name:"สมรถ หลักฐาน", Username:"somrod"},
+		{Name:"บีบี", Username:"bee"},
 	}
 	passwords := []string{
-		"1323453",
-		"asdfasfd",
+		"1234",
+		"1234",
 		"23rsafasf",
 		";alsjdfl",
 		"a;dlfjka",
@@ -22,4 +22,3 @@ func MockUser()  []*User{
 	}
 	return users
 }
-//func MockPassword() []

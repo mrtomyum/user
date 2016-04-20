@@ -5,18 +5,43 @@
   <div class="container">
     <div class="row">
       <div class="hero-text">
-        <h1>Index</h1>
-          <p>{{.users}}</p>
+        <h2>Login</h2>
       </div>
     </div>
   </div>
 </header>
-
 <div class="container">
   <div class="row">
     <div class="span6">
       {{template "flash.html" .}}
     </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+
+    <form class="form-signin" method="POST" action="{{url "App.Login"}}">
+    <p class="field">
+      <input type="text" name="username" size="19" value="{{.flash.username}}" placeholder="Username" autofocus />
+    </p>
+    <p class="field">
+      <input type="password" name="password" size="19" placeholder="Password"/>
+    </p>
+    <p class="checkbox">
+      <label>จำฉันไว้
+        <input type="checkbox" name="remember" value="true" placeholder="จำฉันไว้"/>
+      </label>
+    </p>
+    <p class="buttons">
+      <input type="submit" value="Account login" />
+    </p>
+    </form>
+    <p>
+      <a href="{{url "User.New"}}">ลงทะเบียนผู้ใช้ใหม่</a>
+    </p>
+
+
   </div>
 </div>
 
