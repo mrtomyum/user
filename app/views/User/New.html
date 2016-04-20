@@ -26,8 +26,11 @@
     <form method="post" action="{{url "User.NewPost"}}">
         <fieldset>
             <legend accesskey="u">User Information</legend>
+
+            <label for="name">ชื่อ-สกุล:</label>
+            <input tabindex="1" type="text" id="name" name="user.Name" placeholder="ชื่อ-สกุล" autofocus ></input><br/>
             <label for="name" accesskey="n">Username:</label>
-            <input tabindex="1" type="text" id="name" name="user.Name" placeholder="กรอกเป็นภาษาอังกฤษตัวเล็ก"></input><br/>
+            <input tabindex="1" type="text" id="username" name="user.Username" placeholder="กรอกเป็นภาษาอังกฤษตัวเล็ก"></input><br/>
             <label for="password" accesskey="p">Password:</label>
             <input tabindex="2" type="password" id="password" name="user.Password" placeholder="รหัสผ่านอย่างน้อย 6 อักษร"></input><br/>
             <label for="role">Role:</label>

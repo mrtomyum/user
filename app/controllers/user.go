@@ -30,6 +30,8 @@ func (c User) New() revel.Result {
 func (c User) NewPost() revel.Result {
 	var user m.User
 	c.Params.Bind(&user, "user")
+	user.SetPass(user.Password)
+	db.Create(&user)
 	fmt.Printf("User info: %v\n", user)
 	return c.RenderTemplate("User/New.html")
 }
