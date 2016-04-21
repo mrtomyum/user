@@ -4,6 +4,7 @@ import (
 	"github.com/revel/revel"
 	"github.com/mrtomyum/user/app/models"
 	//"github.com/mrtomyum/user/app/routes"
+	//"golang.org/x/crypto/bcrypt"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -30,12 +31,15 @@ func (c App) getUser(username string) *models.User {
 	return user
 }
 
+
 func (c App) Index() revel.Result {
 	if c.connected() != nil {
 		return c.Redirect(User.Index)
 	}
+	currentLocale := c.Request.Locale // ตรวจสอบ Locale ของผู้ใช้
+	c.RenderArgs["controllerGreeting"] = c.Message("greeting")
 	c.Flash.Error("กรุณา login ก่อน")
-	return c.Render()
+	return c.Render(currentLocale)
 }
 
 func (c App) Login(username, password string, remember bool) revel.Result {

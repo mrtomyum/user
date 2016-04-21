@@ -1,5 +1,16 @@
   {{if eq .RunMode "dev"}}
     {{template "debug.html" .}}
   {{end}}
+
+  <div class="container" align="center">
+      <p>My Locale is: {{.currentLocale}} Greeting: {{msg . "greeting"}}</p>
+      <a href="{{url "App.Logout"}}" >Logout</a>
+  </div>
   </body>
+
+  <!-- Bootstrap core JavaScript
+================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
 </html>

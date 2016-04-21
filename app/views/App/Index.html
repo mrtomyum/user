@@ -18,31 +18,54 @@
   </div>
 </div>
 
-<div class="container">
-  <div class="row">
+<!--<div class="container">-->
+  <!--<div class="row">-->
 
-    <form class="form-signin" method="POST" action="{{url "App.Login"}}">
+    <!--<form class="form-signin" method="POST" action="{{url "App.Login"}}">-->
+    <!--&lt;!&ndash;<p class="field">&ndash;&gt;-->
+      <!--<input type="text" name="username" size="19" value="{{.flash.username}}" placeholder="Username" autofocus />-->
+    <!--&lt;!&ndash;</p>&ndash;&gt;-->
     <!--<p class="field">-->
-      <input type="text" name="username" size="19" value="{{.flash.username}}" placeholder="Username" autofocus />
+      <!--<input type="password" name="password" size="19" placeholder="Password"/>-->
     <!--</p>-->
-    <p class="field">
-      <input type="password" name="password" size="19" placeholder="Password"/>
-    </p>
-    <p class="checkbox">
-      <label>จำฉันไว้
-        <input type="checkbox" name="remember" value="true" placeholder="จำฉันไว้"/>
+    <!--<p class="checkbox">-->
+      <!--<label>จำฉันไว้-->
+        <!--<input type="checkbox" name="remember" value="true" placeholder="จำฉันไว้"/>-->
+      <!--</label>-->
+    <!--</p>-->
+    <!--<p class="buttons">-->
+      <!--<input type="submit" value="Account login" />-->
+    <!--</p>-->
+    <!--</form>-->
+    <!--<p>-->
+      <!--<a href="{{url "User.New"}}">ลงทะเบียนผู้ใช้ใหม่</a>-->
+    <!--</p>-->
+
+
+  <!--</div>-->
+<!--</div>-->
+
+
+<div class="container">
+
+  <form class="form-signin" method="post" action="{{url "App.Login"}}">
+    <h2 class="form-signin-heading">Please sign in</h2>
+    <label for="inputUser" class="sr-only">Username</label>
+    <input type="text" name="username" id="inputUser" class="form-control" placeholder="ชื่อผู้ใช้" value="{{.flash.username}}" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="รหัสผ่าน" required>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" value="remember-me" name="remember"> จำฉันไว้
       </label>
-    </p>
-    <p class="buttons">
-      <input type="submit" value="Account login" />
-    </p>
-    </form>
-    <p>
-      <a href="{{url "User.New"}}">ลงทะเบียนผู้ใช้ใหม่</a>
-    </p>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  </form>
+
+</div> <!-- /container -->
 
 
-  </div>
-</div>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 
 {{template "footer.html" .}}

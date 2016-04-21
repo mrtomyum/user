@@ -14,27 +14,47 @@
 </header>
 <div class="container">
     <div class="row">
-        <div class="span6">
+        <div class="col-md-6">
+        <!--<div class="span6">-->
             {{template "flash.html" .}}
         </div>
     </div>
 </div>
 
 <body>
-
 <div class="container">
     <div class="row">
-        <p>User Index:
-            {{range .users}}
-        <li>{{.Username}} {{.Name}}</li>
-        {{end}}
+        <div class="col-md-6">
+        <h2>User Index:</h2>
+
+            <table class="table">
+            <!--<table class="table table-striped">-->
+                <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th>Role</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{range .users}}
+                <tr>
+                    <td>{{.Username}}</td>
+                    <td>{{.Name}}</td>
+                    <td>{{.Role}}</td>
+                </tr>
+                {{end}}
+                </tbody>
+            </table>
+            <p align="center">
+                <a href="{{url "User.New"}}">ลงทะเบียนผู้ใช้ใหม่</a>
+            </p>
+        </div>
+
         <br/>
-        </p>
+
     </div>
 </div>
-<p>
-    <a href="{{url "User.New"}}">ลงทะเบียนผู้ใช้ใหม่</a>
-</p>
 
 </body>
 </html>

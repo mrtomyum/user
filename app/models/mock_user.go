@@ -2,8 +2,8 @@ package models
 
 func MockUser()  []*User{
 	users := []*User{
-		{Name:"เกษมอานนทวิลาศ", Username:"tom"},
-		{Name:"จิราภรณ์ อานนทวิลาศ", Username:"jip"},
+		{Name:"เกษม อานนทวิลาศ", Username:"tom", Role:"System Admin"},
+		{Name:"จิราภรณ์ อานนทวิลาศ", Username:"jip", Role:"Manager"},
 		{Name:"ธนันท์ อานนทวิลาศ", Username:"tam"},
 		{Name:"สาธิต โฉมวัฒนา", Username:"satit"},
 		{Name:"สมรถ หลักฐาน", Username:"somrod"},
@@ -15,7 +15,7 @@ func MockUser()  []*User{
 		"23rsafasf",
 		";alsjdfl",
 		"a;dlfjka",
-		"a;dlsjkf;;l",
+		"abc",
 	}
 	for k, _ := range users{
 		users[k].SetPass(passwords[k])
