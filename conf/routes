@@ -10,6 +10,7 @@ GET     /user/new                               User.New
 POST    /user/new                               User.NewPost
 GET     /user/:id                               User.Show
 POST    /user/api/post                          User.ApiPost
+GET     /logout                                 App.Logout
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
