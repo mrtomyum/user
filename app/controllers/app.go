@@ -6,10 +6,18 @@ import (
 	//"github.com/mrtomyum/user/app/routes"
 	//"golang.org/x/crypto/bcrypt"
 	"golang.org/x/crypto/bcrypt"
+	"fmt"
 )
 
 type App struct {
 	*revel.Controller
+}
+
+func (c App) AddUser() revel.Result {
+	if user := c.connected(); user != nil {
+		c.RenderArgs["user"] = user
+	}
+	return nil
 }
 
 func (c App) connected() *models.User {
@@ -34,7 +42,8 @@ func (c App) getUser(username string) *models.User {
 
 func (c App) Index() revel.Result {
 	if c.connected() != nil {
-		return c.Redirect(User.Index)
+		fmt.Printf("c.connetced() = %v", c.connected())
+		return c.Redirect(Users.Index)
 	}
 	currentLocale := c.Request.Locale // ตรวจสอบ Locale ของผู้ใช้
 	c.RenderArgs["controllerGreeting"] = c.Message("greeting")
@@ -49,12 +58,12 @@ func (c App) Login(username, password string, remember bool) revel.Result {
 		if err == nil {
 			c.Session["user"] = username
 			if remember {
-				c.Session.SetDefaultExpiration()
-			} else {
 				c.Session.SetNoExpiration()
+			} else {
+				c.Session.SetDefaultExpiration()
 			}
 			c.Flash.Success("Welcome, " + username)
-			return c.Redirect(User.Index)
+			return c.Redirect(Users.Index)
 		}
 	}
 

@@ -2,17 +2,17 @@ package models
 
 import (
 	"github.com/jinzhu/gorm"
+	"github.com/revel/revel"
 	"golang.org/x/crypto/bcrypt"
 	"log"
-	"github.com/revel/revel"
-"regexp"
+	"regexp"
 )
 
 type User struct {
 	gorm.Model
 	Name           string
 	Username       string
-	Password       string	`gorm:"-"`
+	Password       string `gorm:"-"`
 	HashedPassword []byte
 	Role           string
 }
@@ -52,9 +52,9 @@ func (u *User) Validate(v *revel.Validation) {
 }
 
 func ValidatePassword(v *revel.Validation, password string) *revel.ValidationResult {
-	 return v.Check(password,
-		 revel.Required{},
-		 revel.MaxSize{15},
-		 revel.MinSize{5},
-	 )
+	return v.Check(password,
+		revel.Required{},
+		revel.MaxSize{15},
+		revel.MinSize{5},
+	)
 }
