@@ -27,14 +27,25 @@ func (c User) New() revel.Result {
 	return c.Render()
 }
 
-func (c User) NewPost() revel.Result {
-	var user m.User
-	c.Params.Bind(&user, "user")
+func (c User) Save(user m.User, verifyPassword string) revel.Result {
+	//c.Params.Bind(&user, "user")
+	fmt.Printf("verifyPassword: %v <--> u.Password: %v\n", verifyPassword, user.Password)
+	c.Validation.Required(verifyPassword)
+	c.Validation.Required(verifyPassword == user.Password).Message("Password does not match")
+	user.Validate(c.Validation)
+
+	if c.Validation.HasErrors() {
+		c.Validation.Keep()
+		c.FlashParams()
+		return c.Redirect(User.New)
+	}
+
 	user.SetPass(user.Password)
 	user.Password = "" // prevent plain text password to be save to database
 	db.Create(&user)
 	fmt.Printf("User info: %v\n", user)
-	return c.RenderTemplate("User/New.html")
+	c.Flash.Success("User %v saved", user.Name)
+	return c.Redirect(User.Index)
 }
 
 func (c User) ApiPost() revel.Result {

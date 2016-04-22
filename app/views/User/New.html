@@ -21,20 +21,20 @@
 </div>
 <body>
     <div class="container">
-    <h1>กรุณากรอกข้อมูลผู้ใช้งานใหม่</h1>
-
-    <form method="post" action="{{url "User.NewPost"}}">
+    <form class="form-group" method="post" action="{{url "User.Save"}}">
         <fieldset>
-            <legend accesskey="u">User Information</legend>
+            <legend class="heading">กรุณากรอกข้อมูลผู้ใช้งานใหม่</legend>
 
-            <label for="name">ชื่อ-สกุล:</label>
-            <input tabindex="1" type="text" id="name" name="user.Name" placeholder="ชื่อ-สกุล" autofocus ></input><br/>
-            <label for="name" accesskey="n">Username:</label>
-            <input tabindex="1" type="text" id="username" name="user.Username" placeholder="กรอกเป็นภาษาอังกฤษตัวเล็ก"></input><br/>
+            <label for="name">Name:</label>
+            <input id="name" tabindex="1" type="text" name="user.Name" class="form-control" placeholder="ชื่อ-สกุล" autofocus ></input><br/>
+            <label for="name" accesskey="n" >Username:</label>
+            <input id="username" tabindex="1" type="text" name="user.Username" class="form-control"placeholder="Username กรอกเป็นภาษาอังกฤษตัวเล็ก"></input><br/>
             <label for="password" accesskey="p">Password:</label>
-            <input tabindex="2" type="password" id="password" name="user.Password" placeholder="รหัสผ่านอย่างน้อย 6 อักษร"></input><br/>
+            <input id="password" tabindex="2" type="password" name="user.Password" class="form-control"placeholder="รหัสผ่าน อย่างน้อย 5 ตัวอักษร"></input><br/>
+            <label for="vpassword">Verify Password:</label>
+            <input id="vpassword" tabindex="3" type="password" name="verifyPassword" class="form-control" placeholder="ยืนยันรหัสผ่าน"></input><br/>
             <label for="role">Role:</label>
-            <select tabindex="3" id="role" name="user.Role">
+            <select id="role" tabindex="4" name="user.Role" class="form-control">
                 <optgroup label="System">
                     <option label="System Manager" value="SYSMANAGER"></option>
                     <option label="System Admin" value="SYSADMIN"></option>
@@ -45,7 +45,8 @@
                   <option label="Cashier" value="CASHIER"></option>
                 </optgroup>
             </select><br/>
-            <input tabindex="0" type="submit" value="submit"></input><br/>
+            <!--<input tabindex="5" type="submit" value="Save"></input><br/>-->
+            <input type="submit" tabindex="5" value="Save" class="btn btn-primary btn-block"></input><br/>
         </fieldset>
     </form>
     </div>

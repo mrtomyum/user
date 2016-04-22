@@ -4,6 +4,8 @@ import (
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
 	"log"
+	"github.com/revel/revel"
+"regexp"
 )
 
 type User struct {
@@ -31,4 +33,28 @@ func (u *User) VerifyPass(p string) error {
 		return err
 	}
 	return nil
+}
+
+var userRegex = regexp.MustCompile("^\\w*$")
+
+func (u *User) Validate(v *revel.Validation) {
+	v.Check(u.Username,
+		revel.Required{},
+		revel.MaxSize{15},
+		revel.MinSize{1},
+		revel.Match{userRegex},
+	)
+	v.Check(u.Name,
+		revel.Required{},
+		revel.MaxSize{100},
+	)
+	ValidatePassword(v, u.Password).Key("user.Password")
+}
+
+func ValidatePassword(v *revel.Validation, password string) *revel.ValidationResult {
+	 return v.Check(password,
+		 revel.Required{},
+		 revel.MaxSize{15},
+		 revel.MinSize{5},
+	 )
 }

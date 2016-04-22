@@ -7,7 +7,7 @@ module:testrunner
 GET     /                                       App.Index
 GET     /user                                   User.Index
 GET     /user/new                               User.New
-POST    /user/new                               User.NewPost
+POST    /user/new                               User.Save
 GET     /user/:id                               User.Show
 POST    /user/api/post                          User.ApiPost
 GET     /logout                                 App.Logout
