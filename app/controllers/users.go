@@ -7,10 +7,6 @@ import (
 	"encoding/json"
 )
 
-var dbType string = "sqlite3"
-var dbFile string = "./app/models/user.db"
-var db *m.DB = m.NewDB(dbType, dbFile)
-
 type Users struct {
 	App
 }
@@ -18,17 +14,17 @@ type Users struct {
 func (c Users) checkUser() revel.Result {
 	if user := c.connected(); user == nil {
 		c.Flash.Error("Please log in first")
-		fmt.Printf("c.connetced() = %v", c.connected().Username)
 		return c.Redirect(App.Index)
 	}
 	return nil
 }
 
 func (c Users) Index() revel.Result {
+	c.checkUser()
+	fmt.Printf("c.connetced() = %v", c.connected().Username)
 	users := []m.User{}
 	db.Debug().Find(&users)
 	//fmt.Println(users)
-	fmt.Printf("c.connetced() = %v", c.connected().Username)
 	return c.Render(users)
 }
 
@@ -51,8 +47,13 @@ func (c Users) Save(user m.User, verifyPassword string) revel.Result {
 
 	user.SetPass(user.Password)
 	user.Password = "" // prevent plain text password to be save to database
-	db.Create(&user)
-	fmt.Printf("User info: %v\n", user)
+
+	rows := db.Debug().Create(&user).RowsAffected
+	if rows == 0 {
+		c.Flash.Error("Error!!, may be Duplicate Username.")
+		return c.Redirect(Users.New)
+	}
+	//fmt.Printf("User info: %v\n", user)
 	c.Flash.Success("User %v saved", user.Name)
 	return c.Redirect(Users.Index)
 }

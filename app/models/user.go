@@ -10,8 +10,8 @@ import (
 
 type User struct {
 	gorm.Model
-	Name           string
-	Username       string
+	Name           string `gorm:"not null`
+	Username       string `gorm:"not null;unique"`
 	Password       string `gorm:"-"`
 	HashedPassword []byte
 	Role           string

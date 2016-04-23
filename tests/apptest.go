@@ -1,14 +1,15 @@
 package tests
 
 import (
-	m "github.com/mrtomyum/user/app/models"
+	"fmt"
 	"github.com/revel/revel/testing"
-"fmt"
+	"github.com/mrtomyum/user/app/controllers"
+	"github.com/mrtomyum/user/app/models"
 )
 
 var dbType string = "sqlite3"
 var dbFile string = "./app/models/user.db"
-var db *m.DB = m.NewDB(dbType, dbFile)
+var db = controllers.InitDB(dbType, dbFile)
 
 type AppTest struct {
 	testing.TestSuite
@@ -28,22 +29,22 @@ func (t *AppTest) After() {
 	println("Tear down")
 }
 
-func (t *AppTest) TestCreateTableUser(){
-	db.CreateTable(&m.User{})
+func (t *AppTest) TestCreateTableUser() {
+	db.CreateTable(&models.User{})
 }
-func (t *AppTest) TestDropTableUser(){
-	db.DropTableIfExists(&m.User{})
+func (t *AppTest) TestDropTableUser() {
+	db.DropTableIfExists(&models.User{})
 }
 
 func (t *AppTest) TestMockUserTable() {
-	users := m.MockUser()
+	users := models.MockUser()
 	for _, u := range users {
 		db.Create(&u)
 	}
 }
 
 func (t *AppTest) TestAddUserAndSetPass() {
-	u := m.User{Name:"nadya"}
+	u := models.User{Name: "nadya"}
 	db.Debug().Create(&u)
 
 	fmt.Println("u = ", &u)
@@ -57,17 +58,16 @@ func (t *AppTest) TestAddUserAndSetPass() {
 	db.Save(&u)
 
 }
-func (t *AppTest) TestPasswordMismatch()  {
-	b := m.User{}
+func (t *AppTest) TestPasswordMismatch() {
+	b := models.User{}
 	db.Debug().First(&b)
 	fmt.Println("b =", &b)
 	pass := "123"
 	err := b.VerifyPass(pass)
 
 	if err != nil {
-		fmt.Println("Password missmatch?? =>", pass )
+		fmt.Println("Password missmatch?? =>", pass)
 	} else {
 		fmt.Println("Password matched!")
 	}
 }
-

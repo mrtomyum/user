@@ -3,11 +3,13 @@ package controllers
 import (
 	"github.com/revel/revel"
 	"github.com/mrtomyum/user/app/models"
-	//"github.com/mrtomyum/user/app/routes"
-	//"golang.org/x/crypto/bcrypt"
 	"golang.org/x/crypto/bcrypt"
 	"fmt"
 )
+
+var dbType string = "sqlite3"
+var dbFile string = "./app/models/user.db"
+var db = InitDB(dbType, dbFile)
 
 type App struct {
 	*revel.Controller
@@ -39,7 +41,6 @@ func (c App) getUser(username string) *models.User {
 	return user
 }
 
-
 func (c App) Index() revel.Result {
 	if c.connected() != nil {
 		fmt.Printf("c.connetced() = %v", c.connected())
@@ -52,6 +53,7 @@ func (c App) Index() revel.Result {
 }
 
 func (c App) Login(username, password string, remember bool) revel.Result {
+
 	user := c.getUser(username)
 	if user != nil {
 		err := bcrypt.CompareHashAndPassword(user.HashedPassword, []byte(password))

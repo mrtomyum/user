@@ -1,4 +1,4 @@
-package models
+package controllers
 
 import (
 	"github.com/jinzhu/gorm"
@@ -10,7 +10,7 @@ type DB struct {
 	*gorm.DB
 }
 
-func NewDB(dataBaseType, conn string) *DB {
+func InitDB(dataBaseType, conn string) *DB {
 	db, err := gorm.Open(dataBaseType, conn)
 	if err != nil {
 		log.Println(err.Error())
