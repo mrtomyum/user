@@ -1,7 +1,6 @@
-<!DOCTYPE html>
-{{set . "title" "Users"}}
+{{set . "title" "Users Index"}}
 {{template "header.html" .}}
-
+</br>
 <div class="container">
     <div class="row">
         <div class="span6">
@@ -11,20 +10,19 @@
     </div>
 </div>
 
-
 <div class="container">
     <div class="row">
         <div class="col-md-12" >
-        <h2>User Index:</h2>
+            <h2>User Index:</h2>
             <div class="table-responsive">
                 <table class="table table-hover">
-                <!--<table class="table table-striped">-->
                     <thead>
                     <tr>
                         <th>#</th>
                         <th>Username</th>
                         <th>Name</th>
                         <th>Role</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -34,11 +32,19 @@
                         <td>{{.Username}}</td>
                         <td>{{.Name}}</td>
                         <td>{{.Role}}</td>
+                        <td>
+                            <!--BUG!!-->
+                            <a href="{{url "Users.Show" .ID}}">Show</a>
+                            <!--BUG!!!!-->
+                        </td>
                     </tr>
                     {{end}}
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+</div>
             <div class="container" align="center">
                 <!--<span class="glyphicon glyphicon-user"></span>-->
                 <!--<a href="{{url "Users.New"}}">ลงทะเบียนผู้ใช้ใหม่</a>-->

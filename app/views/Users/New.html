@@ -1,17 +1,7 @@
-<!DOCTYPE html>
 {{set . "title" "New User"}}
 {{template "header.html" .}}
-<!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--<header class="hero-unit" style="background-color:#A9F16C">-->
-    <!--<div class="container">-->
-        <!--<div class="row">-->
-            <!--<div class="hero-text">-->
-                <!--<h1>New User</h1>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</header>-->
 
+</br>
 <div class="container" xmlns="http://www.w3.org/1999/html">
     <div class="row">
         <div class="span6">
@@ -20,9 +10,9 @@
     </div>
 </div>
 <body>
-    </br>
+
     <div class="container">
-    <form class="form-group" method="post" action="{{url "Users.Save"}}">
+    <form class="form-group" method="post" action="{{url "Users.Add"}}">
         <fieldset>
             <legend class="heading">กรุณากรอกข้อมูลผู้ใช้งานใหม่</legend>
 
@@ -53,8 +43,9 @@
     </div>
     <div class="container" align="center">
         <a href="{{url "Users.Index"}}" class="btn btn-info btn-lg">
-        <span class="glyphicon glyphicon-chevron-left"></span> Back
+        <span class="glyphicon glyphicon-menu-left"></span> Back
         </a>
     </div>
 </body>
+
 {{template "footer.html" .}}

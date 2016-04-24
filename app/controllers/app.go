@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/revel/revel"
-	"github.com/mrtomyum/user/app/models"
+	m "github.com/mrtomyum/user/app/models"
 	"golang.org/x/crypto/bcrypt"
 	"fmt"
 )
@@ -22,23 +22,14 @@ func (c App) AddUser() revel.Result {
 	return nil
 }
 
-func (c App) connected() *models.User {
+func (c App) connected() *m.User {
 	if c.RenderArgs["user"] != nil {
-		return c.RenderArgs["user"].(*models.User)
+		return c.RenderArgs["user"].(*m.User)
 	}
 	if username, ok := c.Session["user"]; ok {
-		return c.getUser(username)
+		return Users{}.getUser(username)
 	}
 	return nil
-}
-
-func (c App) getUser(username string) *models.User {
-	user := new(models.User)
-	db.First(&user, "username = ?", username)
-	if user == nil {
-		return nil
-	}
-	return user
 }
 
 func (c App) Index() revel.Result {
@@ -54,7 +45,7 @@ func (c App) Index() revel.Result {
 
 func (c App) Login(username, password string, remember bool) revel.Result {
 
-	user := c.getUser(username)
+	user := Users{}.getUser(username)
 	if user != nil {
 		err := bcrypt.CompareHashAndPassword(user.HashedPassword, []byte(password))
 		if err == nil {

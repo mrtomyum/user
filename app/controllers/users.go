@@ -11,6 +11,15 @@ type Users struct {
 	App
 }
 
+func (c Users) getUser(username string) *m.User {
+	user := new(m.User)
+	db.First(&user, "username = ?", username)
+	if user == nil {
+		return nil
+	}
+	return user
+}
+
 func (c Users) checkUser() revel.Result {
 	if user := c.connected(); user == nil {
 		c.Flash.Error("Please log in first")
@@ -32,8 +41,7 @@ func (c Users) New() revel.Result {
 	return c.Render()
 }
 
-func (c Users) Save(user m.User, verifyPassword string) revel.Result {
-	//c.Params.Bind(&user, "user")
+func (c Users) Add(user m.User, verifyPassword string) revel.Result {
 	fmt.Printf("verifyPassword: %v <--> u.Password: %v\n", verifyPassword, user.Password)
 	c.Validation.Required(verifyPassword)
 	c.Validation.Required(verifyPassword == user.Password).Message("Password does not match")
@@ -53,9 +61,42 @@ func (c Users) Save(user m.User, verifyPassword string) revel.Result {
 		c.Flash.Error("Error!!, may be Duplicate Username.")
 		return c.Redirect(Users.New)
 	}
+	c.Flash.Success("User %v added", user.Name)
+	return c.Redirect(Users.Index)
+}
+func (c Users) Show(ID string) revel.Result {
+user := new(m.User)
+db.Debug().First(&user, "ID = ?", ID)
+return c.Render(user)
+}
+
+func (c Users) Edit(user m.User) revel.Result {
+return c.Render(user)
+}
+
+func (c Users) Save(user m.User, verifyPassword string) revel.Result {
+	fmt.Printf("verifyPassword: %v <--> u.Password: %v\n", verifyPassword, user.Password)
+	c.Validation.Required(verifyPassword)
+	c.Validation.Required(verifyPassword == user.Password).Message("Password does not match")
+	user.Validate(c.Validation)
+
+	if c.Validation.HasErrors() {
+		c.Validation.Keep()
+		c.FlashParams()
+		return c.Redirect(Users.New)
+	}
+
+	user.SetPass(user.Password)
+	user.Password = "" // prevent plain text password to be save to database
+
+	rows := db.Debug().Update(&user).RowsAffected
+	if rows == 0 {
+		c.Flash.Error("Error!!, may be Duplicate Username.")
+		return c.Redirect(Users.Edit, user)
+	}
 	//fmt.Printf("User info: %v\n", user)
 	c.Flash.Success("User %v saved", user.Name)
-	return c.Redirect(Users.Index)
+	return c.Redirect(Users.Show, user)
 }
 
 func (c Users) ApiPost() revel.Result {
@@ -64,10 +105,6 @@ func (c Users) ApiPost() revel.Result {
 	dec.Decode(&user)
 	fmt.Printf("The Order data: %v\n", user)
 	return c.Render(user)
-}
-
-func (c Users) Show(id uint) revel.Result {
-	return c.Render()
 }
 
 // TODO: Add User.Edit() and modify User.Index() with link in User list

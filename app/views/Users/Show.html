@@ -1,0 +1,61 @@
+{{set . "title" "Show User"}}
+{{template "header.html" .}}
+
+</br>
+<div class="container" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+     xmlns="http://www.w3.org/1999/html">
+    <div class="row">
+        <div class="span6">
+            {{template "flash.html" .}}
+        </div>
+    </div>
+</div>
+<body>
+{{if .user}}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" >
+            <h2>User Show:</h2>
+            {{with .user}}
+            <form role="form" class="form-set" action="{{url "Users.Edit" .ID}}">
+            <fieldset disabled>
+            <dev class="form-group">
+                <label for="ID">ID</label>
+                <input id="ID" class="form-control" name="user.ID" value="{{.ID}}" type="text"></input>
+                <label for="Username">Username</label>
+                <input id="Username" class="form-control" name="user.Username" value="{{.Username}}" type="text"></input>
+                <label for="Name">Name</label>
+                <input id="Name" class="form-control" name="user.Name" value="{{.Name}}" type="text"></input>
+                <label for="Role">Role</label>
+                <input id="Role" class="form-control" name="user.Role" value="{{.Role}}" type="text"></input>
+            </dev>
+            </fieldset>
+            </form>
+            </br>
+            {{end}}
+        </div>
+    </div>
+</div>
+{{end}}
+<div class="container" align="center"> <!-- Show Control -->
+    <a href="{{url "Users.Index"}}" class="btn btn-info btn-lg">
+        <span class="glyphicon glyphicon-menu-left"></span> Index
+    </a>
+    <a href="{{url "Users.Show"}}" class="btn btn-info btn-lg">
+        <span class="glyphicon glyphicon-backward"></span> Back
+    </a>
+    <a href="{{url "Users.Show"}}" class="btn btn-info btn-lg">
+        <span class="glyphicon glyphicon-forward"></span> Next
+    </a>
+
+    <input type="submit" value="Edit" class="btn btn-info btn-lg">
+    </input>
+
+    <a href="{{url "Users.Edit" .user.ID}}" class="btn btn-info btn-lg">
+        <span class="glyphicon glyphicon-pencil"></span>Edit
+    </a>
+</div>
+</body>
+
+
+{{template "footer.html" .}}
