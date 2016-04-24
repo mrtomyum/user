@@ -9,7 +9,7 @@ GET     /user                                   Users.Index
 GET     /user/new                               Users.New
 POST    /user/new                               Users.Add
 GET     /user/:id                               Users.Show
-GET     /user/edit                              Users.Edit
+GET     /user/edit/:id                          Users.Edit
 POST    /user/edit                              Users.Save
 POST    /user/api/post                          Users.ApiPost
 GET     /logout                                 App.Logout

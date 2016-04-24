@@ -27,7 +27,7 @@ func (c App) connected() *m.User {
 		return c.RenderArgs["user"].(*m.User)
 	}
 	if username, ok := c.Session["user"]; ok {
-		return Users{}.getUser(username)
+		return Users{}.getUserByName(username)
 	}
 	return nil
 }
@@ -45,7 +45,7 @@ func (c App) Index() revel.Result {
 
 func (c App) Login(username, password string, remember bool) revel.Result {
 
-	user := Users{}.getUser(username)
+	user := Users{}.getUserByName(username)
 	if user != nil {
 		err := bcrypt.CompareHashAndPassword(user.HashedPassword, []byte(password))
 		if err == nil {

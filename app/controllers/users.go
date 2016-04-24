@@ -1,19 +1,28 @@
 package controllers
 
 import (
+	"encoding/json"
 	"fmt"
 	m "github.com/mrtomyum/user/app/models"
 	"github.com/revel/revel"
-	"encoding/json"
 )
 
 type Users struct {
 	App
 }
 
-func (c Users) getUser(username string) *m.User {
+func (c Users) getUserByName(username string) *m.User {
 	user := new(m.User)
 	db.First(&user, "username = ?", username)
+	if user == nil {
+		return nil
+	}
+	return user
+}
+
+func (c Users) getUserByID(id string) *m.User {
+	user := new(m.User)
+	db.First(&user, "id = ?", id)
 	if user == nil {
 		return nil
 	}
@@ -64,14 +73,17 @@ func (c Users) Add(user m.User, verifyPassword string) revel.Result {
 	c.Flash.Success("User %v added", user.Name)
 	return c.Redirect(Users.Index)
 }
-func (c Users) Show(ID string) revel.Result {
-user := new(m.User)
-db.Debug().First(&user, "ID = ?", ID)
-return c.Render(user)
+func (c Users) Show(id string) revel.Result {
+	//user := new(m.User)
+	//db.Debug().First(&user, "id = ?", id)
+	user := c.getUserByID(id)
+	return c.Render(user)
 }
 
-func (c Users) Edit(user m.User) revel.Result {
-return c.Render(user)
+func (c Users) Edit(id string) revel.Result {
+	user := c.getUserByID(id)
+	fmt.Println(user)
+	return c.Redirect(Users.Edit, user, id)
 }
 
 func (c Users) Save(user m.User, verifyPassword string) revel.Result {

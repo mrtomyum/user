@@ -10,14 +10,16 @@
         </div>
     </div>
 </div>
+
 <body>
+
 {{if .user}}
 <div class="container">
     <div class="row">
         <div class="col-md-12" >
             <h2>User Show:</h2>
             {{with .user}}
-            <form role="form" class="form-set" action="{{url "Users.Edit" .ID}}">
+            <form role="form" class="form-set">
             <fieldset disabled>
             <dev class="form-group">
                 <label for="ID">ID</label>
