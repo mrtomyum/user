@@ -10,7 +10,7 @@ GET     /user/new                               Users.New
 POST    /user/new                               Users.Add
 GET     /user/:id                               Users.Show
 GET     /user/edit/:id                          Users.Edit
-POST    /user/edit                              Users.Save
+POST    /user/edit/:id                          Users.Save
 POST    /user/api/post                          Users.ApiPost
 GET     /logout                                 App.Logout
 

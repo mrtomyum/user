@@ -91,8 +91,10 @@ func (c Users) Save(user m.User, verifyPassword string) revel.Result {
 		c.Validation.Required(verifyPassword)
 		c.Validation.Required(verifyPassword == user.Password).Message("Password does not match")
 		m.ValidatePassword(c.Validation, user.Password).Key("user.Password")
+		fmt.Println("Validate user.Password")
 	}
 	user.Validate(c.Validation) //ไม่ว่าจะแก้พาสเวิร์ดหรือไม่ก็ให้เช็ค Validation อื่นๆของ user ด้วย
+	fmt.Println("user.Validate(c.Validation)")
 
 	if c.Validation.HasErrors() {
 		c.Validation.Keep()
@@ -104,13 +106,16 @@ func (c Users) Save(user m.User, verifyPassword string) revel.Result {
 		user.SetPass(user.Password)
 		user.Password = "" // prevent plain text password to be save to database
 	}
+	fmt.Println("Validating completed")
 
+	//rows := db.Debug().Model(&user).Updates(user).RowsAffected
 	rows := db.Debug().Model(&user).Updates(m.User{
 		Name:user.Name,
 		Username:user.Username,
 		HashedPassword:user.HashedPassword,
 		Role:user.Role,
 	}).RowsAffected
+	fmt.Println("rows = ", rows)
 	if rows == 0 {
 		c.Flash.Error("Error!! RowsAffected = 0")
 		return c.Redirect(Users.Edit, user)
