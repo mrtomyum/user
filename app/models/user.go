@@ -48,7 +48,7 @@ func (u *User) Validate(v *revel.Validation) {
 		revel.Required{},
 		revel.MaxSize{100},
 	)
-	ValidatePassword(v, u.Password).Key("user.Password")
+//	ValidatePassword(v, u.Password).Key("user.Password")
 }
 
 func ValidatePassword(v *revel.Validation, password string) *revel.ValidationResult {
