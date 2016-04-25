@@ -11,11 +11,11 @@
 </div>
 <body>
 
-{{if .user}}
+
 <div class="container">
     <fieldset>
         <legend class="heading">User Edit</legend>
-        <form class="form-group" method="post" action="{{url "Users.Save"}}">
+        <form class="form-group" method="post" action="{{url "Users.Save" .user.ID}}">
 
         <label for="name">Name:</label>
         <input id="name" tabindex="1" type="text" name="user.Name" class="form-control" placeholder="ชื่อ-สกุล"
@@ -45,7 +45,7 @@
     <input type="submit" tabindex="5" value="Save" class="btn btn-primary btn-block"></input>
     </form>
 </div></br>
-{{end}}
+
 
 <div class="container" align="center"> <!-- Show Control -->
     <a href="{{url "Users.Show" .user.ID}}" class="btn btn-info btn-lg">
@@ -58,9 +58,9 @@
     <span class="glyphicon glyphicon-forward"></span> Next
     </a>
 
-    <a href="{{url "Users.Save"}}" class="btn btn-info btn-lg">
-    <span class="glyphicon glyphicon-pencil"></span>Save
-    </a>
+    <!--<a href="{{url "Users.Save"}}" class="btn btn-info btn-lg">-->
+    <!--<span class="glyphicon glyphicon-pencil"></span>Save-->
+    <!--</a>-->
 </div>
 
 </body>

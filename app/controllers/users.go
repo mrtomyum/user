@@ -86,28 +86,29 @@ func (c Users) Edit(id uint) revel.Result {
 	return c.Render(user)
 }
 
-func (c Users) Save(user m.User, verifyPassword string) revel.Result {
-	if user.Password != "" { //ถ้าแก้พาสเวิร์ด ค่อยเช็ค
-		c.Validation.Required(verifyPassword)
-		c.Validation.Required(verifyPassword == user.Password).Message("Password does not match")
-		m.ValidatePassword(c.Validation, user.Password).Key("user.Password")
-		fmt.Println("Validate user.Password")
-	}
-	user.Validate(c.Validation) //ไม่ว่าจะแก้พาสเวิร์ดหรือไม่ก็ให้เช็ค Validation อื่นๆของ user ด้วย
-	fmt.Println("user.Validate(c.Validation)")
+func (c Users) Save(id uint) revel.Result {
+	//if user.Password != "" { //ถ้าแก้พาสเวิร์ด ค่อยเช็ค
+	//	c.Validation.Required(verifyPassword)
+	//	c.Validation.Required(verifyPassword == user.Password).Message("Password does not match")
+	//	m.ValidatePassword(c.Validation, user.Password).Key("user.Password")
+	//	fmt.Println("Validate user.Password")
+	//}
+	//user.Validate(c.Validation) //ไม่ว่าจะแก้พาสเวิร์ดหรือไม่ก็ให้เช็ค Validation อื่นๆของ user ด้วย
+	//fmt.Println("user.Validate(c.Validation)")
+	//
+	//if c.Validation.HasErrors() {
+	//	c.Validation.Keep()
+	//	c.FlashParams()
+	//	return c.Redirect(Users.Edit, user)
+	//}
 
-	if c.Validation.HasErrors() {
-		c.Validation.Keep()
-		c.FlashParams()
-		return c.Redirect(Users.Edit, user)
-	}
-
-	if user.Password != "" {
-		user.SetPass(user.Password)
-		user.Password = "" // prevent plain text password to be save to database
-	}
-	fmt.Println("Validating completed")
-
+	//if user.Password != "" {
+	//	user.SetPass(user.Password)
+	//	user.Password = "" // prevent plain text password to be save to database
+	//}
+	//fmt.Println("Validating completed", user)
+	user := new(m.User)
+	db.First(&user, "id = ?", id)
 	//rows := db.Debug().Model(&user).Updates(user).RowsAffected
 	rows := db.Debug().Model(&user).Updates(m.User{
 		Name:user.Name,
@@ -120,7 +121,7 @@ func (c Users) Save(user m.User, verifyPassword string) revel.Result {
 		c.Flash.Error("Error!! RowsAffected = 0")
 		return c.Redirect(Users.Edit, user)
 	}
-	//fmt.Printf("User info: %v\n", user)
+	fmt.Printf("User info: %v\n", user)
 	c.Flash.Success("User %v saved", user.Name)
 	return c.Redirect(Users.Show, user)
 }
