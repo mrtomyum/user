@@ -22,20 +22,18 @@
                         <th>Username</th>
                         <th>Name</th>
                         <th>Role</th>
-                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     {{range .users}}
+                    <a href="{{url "Users.Show" .ID}}">
                     <tr>
-                        <td>{{.ID}}</td>
-                        <td>{{.Username}}</td>
-                        <td>{{.Name}}</td>
-                        <td>{{.Role}}</td>
-                        <td>
-                            <a href="{{url "Users.Show" .ID}}">Show</a>
-                        </td>
+                            <td>{{.ID}}</td>
+                            <td><a href="{{url "Users.Show" .ID}}">{{.Username}}</a></td>
+                            <td><a href="{{url "Users.Show" .ID}}">{{.Name}}</a></td>
+                            <td>{{.Role}}</td>
                     </tr>
+                    </a>
                     {{end}}
                     </tbody>
                 </table>
