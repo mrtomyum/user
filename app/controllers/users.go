@@ -86,7 +86,7 @@ func (c Users) Edit(id uint) revel.Result {
 	return c.Render(user)
 }
 
-func (c Users) Save(id uint) revel.Result {
+func (c Users) Save(editUser *m.User) revel.Result {
 	//if user.Password != "" { //ถ้าแก้พาสเวิร์ด ค่อยเช็ค
 	//	c.Validation.Required(verifyPassword)
 	//	c.Validation.Required(verifyPassword == user.Password).Message("Password does not match")
@@ -107,23 +107,26 @@ func (c Users) Save(id uint) revel.Result {
 	//	user.Password = "" // prevent plain text password to be save to database
 	//}
 	//fmt.Println("Validating completed", user)
+	fmt.Println("id = ", editUser.ID)
+	fmt.Println("editUser= ", editUser)
 	user := new(m.User)
-	db.First(&user, "id = ?", id)
+	db.First(&user, "id = ?", editUser.ID)
+	fmt.Println("user= ", user)
 	//rows := db.Debug().Model(&user).Updates(user).RowsAffected
 	rows := db.Debug().Model(&user).Updates(m.User{
-		Name:user.Name,
-		Username:user.Username,
-		HashedPassword:user.HashedPassword,
-		Role:user.Role,
+		Name:editUser.Name,
+		Username:editUser.Username,
+		HashedPassword:editUser.HashedPassword,
+		Role:editUser.Role,
 	}).RowsAffected
-	fmt.Println("rows = ", rows)
+	fmt.Println("RowsAffected = ", rows)
 	if rows == 0 {
 		c.Flash.Error("Error!! RowsAffected = 0")
 		return c.Redirect(Users.Edit, user)
 	}
-	fmt.Printf("User info: %v\n", user)
-	c.Flash.Success("User %v saved", user.Name)
-	return c.Redirect(Users.Show, user)
+	fmt.Printf("User info: %v\n", editUser)
+	c.Flash.Success("User %v saved", editUser.Name)
+	return c.Redirect(Users.Show, editUser)
 }
 
 func (c Users) ApiPost() revel.Result {
